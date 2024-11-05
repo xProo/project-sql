@@ -111,3 +111,12 @@ CREATE TABLE Abonnement (
     FOREIGN KEY (utilisateur_id) REFERENCES Utilisateur(id),
     FOREIGN KEY (forfait_code) REFERENCES Forfait(code)
 );
+
+
+-- Création de la table TransportType
+CREATE TABLE TransportType (
+    code VARCHAR(3) PRIMARY KEY,
+    name VARCHAR(32) UNIQUE NOT NULL,
+    capacity INT NOT NULL CHECK (capacity > 0),
+    avg_interval INT NOT NULL CHECK (avg_interval > 0)
+);
