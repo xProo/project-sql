@@ -1,6 +1,6 @@
 --add_transport_type
 
--- Fonction pour ajouter un nouveau moyen de transport
+-- Fonction pour nouveau moyen de transport
 CREATE OR REPLACE FUNCTION add_transport_type(
     code VARCHAR(3),
     name VARCHAR(32),
@@ -179,7 +179,7 @@ BEGIN
         FROM Station s
         WHERE s.id = station;
 
-        -- Vérifier si le type de transport de la ligne et la zone de la station sont compatibles
+      
         IF line_transport_type != station_zone_number THEN
             RETURN FALSE;
         END IF;

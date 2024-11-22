@@ -248,4 +248,47 @@ ORDER BY
 --Procédures
 --list_station_near_user
 
+CREATE OR REPLACE FUNCTION list_station_near_user(user_email VARCHAR(128))
+RETURNS TABLE(station_name VARCHAR(64)) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT DISTINCT LOWER(s.nom)::VARCHAR(64) AS station_name
+    FROM Station s
+    JOIN Utilisateur u ON s.commune = u.commune
+    WHERE u.email = user_email
+    ORDER BY station_name;
+END;
+$$ LANGUAGE plpgsql;
+
+--list_subscribers
+CREATE OR REPLACE FUNCTION list_subscribers(code_offer VARCHAR(5))
+RETURNS SETOF VARCHAR(65) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT DISTINCT CONCAT(u.prenom, ' ', u.nom)::VARCHAR(65) AS full_name
+    FROM utilisateur u
+    JOIN abonnement a ON u.id = a.utilisateur_id
+    JOIN forfait f ON a.forfait_code = f.code
+    WHERE f.code = code_offer
+    ORDER BY full_name;
+END;
+$$ LANGUAGE plpgsql;
+
+
+list_subscription
+CREATE OR REPLACE FUNCTION list_subscription(user_email VARCHAR(128), subscription_date DATE)
+RETURNS SETOF VARCHAR(5) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT a.forfait_code::VARCHAR(5)
+    FROM abonnement a
+    JOIN utilisateur u ON a.utilisateur_id = u.id
+    WHERE u.email = user_email
+      AND a.statut = 'Registered'
+      AND a.date_debut = subscription_date
+    GROUP BY a.forfait_code 
+    ORDER BY a.forfait_code;
+END;
+$$ LANGUAGE plpgsql;
+
 
