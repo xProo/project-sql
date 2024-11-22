@@ -275,7 +275,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-list_subscription
+--list_subscription
 CREATE OR REPLACE FUNCTION list_subscription(user_email VARCHAR(128), subscription_date DATE)
 RETURNS SETOF VARCHAR(5) AS $$
 BEGIN
