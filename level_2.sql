@@ -144,17 +144,17 @@ CREATE OR REPLACE FUNCTION update_offer_price(
 )
 RETURNS BOOLEAN AS $$
 BEGIN
-    -- Vérifier si le prix est positif et non nul
+    
     IF price <= 0 THEN
         RETURN FALSE;
     END IF;
 
-    -- Vérifier si le forfait existe
+   
     IF NOT EXISTS (SELECT 1 FROM Forfait WHERE code = offer_code) THEN
         RETURN FALSE;
     END IF;
 
-    -- Mettre à jour le prix du forfait
+  
     UPDATE Forfait
     SET prix_mois = price
     WHERE code = offer_code;

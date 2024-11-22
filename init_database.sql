@@ -120,3 +120,13 @@ CREATE TABLE TransportType (
     capacity INT NOT NULL CHECK (capacity > 0),
     avg_interval INT NOT NULL CHECK (avg_interval > 0)
 );
+
+
+CREATE TABLE affectation_service (
+    utilisateur_id INTEGER,
+    service_id INTEGER,
+    date_affectation DATE,
+    date_fin DATE,  
+    PRIMARY KEY (utilisateur_id, service_id, date_affectation)
+);
+
