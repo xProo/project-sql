@@ -40,12 +40,7 @@ CREATE TABLE LigneStation (
     FOREIGN KEY (station_id) REFERENCES Station(id)
 );
 
--- Table des lignes
-CREATE TABLE Ligne (
-    code CHAR(3) PRIMARY KEY,
-    transport_id CHAR(3) NOT NULL,
-    FOREIGN KEY (transport_id) REFERENCES Transport(id)
-);
+
 
 -- Table des utilisateurs
 CREATE TABLE Utilisateur (
